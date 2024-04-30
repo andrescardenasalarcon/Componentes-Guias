@@ -1,0 +1,99 @@
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+  <div class="container">
+    <a class="navbar-brand" [routerLink]="['/private']">
+      <img
+        src="../assets/images/angular.png"
+        alt="logo"
+        style="max-width: 150px"
+      />
+    </a>
+    <i
+      ><a
+        class="navbar-text text-decoration-none"
+        [routerLink]="['/private']"
+        >{{ titulo }}</a
+      ></i
+    >
+    <!-- Collapsed button -->
+    <button
+      class="navbar-toggler"
+      type="button"
+      data-bs-toggle="collapse"
+      data-bs-target="#navbarSupportedContent"
+      aria-controls="navbarSupportedContent"
+      aria-expanded="false"
+      aria-label="Toggle navigation"
+    >
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <!-- Navbar items -->
+    <div
+      class="collapse navbar-collapse justify-content-center"
+      id="navbarSupportedContent"
+    >
+      <ul class="navbar-nav">
+        <li class="nav-item ml-5">
+          <a
+            class="nav-link"
+            (click)="sesion.cerrarSesion()"
+            routerLinkActive="active"
+            style="cursor: pointer"
+            >LogOut</a
+          >
+        </li>
+        <li class="nav-item ml-5">
+          <a
+            class="nav-link"
+            [routerLink]="['dash/computer']"
+            routerLinkActive="active"
+            >Computadoras</a
+          >
+        </li>
+        <li class="nav-item ml-5">
+          <a
+            class="nav-link"
+            [routerLink]="['dash/buyer']"
+            routerLinkActive="active"
+            >Compradores/Ordenes</a
+          >
+        </li>
+        <li class="nav-item ml-5 dropdown">
+          <button
+            class="nav-link btn btn-dark dropdown-toggle"
+            data-bs-toggle="dropdown"
+            aria-expanded="false"
+          >
+            Perifericos
+          </button>
+          <ul class="dropdown-menu dropdown-menu-dark">
+            <li>
+              <a
+                class="dropdown-item"
+                [routerLink]="['dash/monitor']"
+                routerLinkActive="active"
+                >Monitor</a
+              >
+            </li>
+            <li>
+              <a
+                class="dropdown-item"
+                [routerLink]="['dash/mouse']"
+                routerLinkActive="active"
+                >Ratón
+              </a>
+            </li>
+            <li></li>
+            <li>
+              <a
+                class="dropdown-item"
+                [routerLink]="['dash/keyboard']"
+                routerLinkActive="active"
+                >Teclado</a
+              >
+            </li>
+          </ul>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>

@@ -1,0 +1,87 @@
+<nav class="pt-1" aria-label="breadcrumb">
+  <ol class="breadcrumb">
+    <li class="breadcrumb-item">
+      <a [routerLink]="['/private']" routerLinkActive="router-link-active">
+        <i class="fa fa-home"></i>
+      </a>
+    </li>
+    <li class="breadcrumb-item active" aria-current="page">
+      <a href="javascript:void();">Periferico</a>
+    </li>
+    <li class="breadcrumb-item active" aria-current="page">Teclado</li>
+  </ol>
+</nav>
+
+<div class="container text-center mt-5">
+  <div class="row justify-content-evenly">
+    <div class="col-12 col-md-5 mb-4 mb-md-0">
+      <!-- TABLA PERIFERICOS TECLADOS -->
+      <h4>Tabla Teclados</h4>
+      <div class="table-responsive">
+        <table class="table table-striped table-hover table-sm my-hover">
+          <thead class="bg-dark text-white">
+            <tr class="table-dark">
+              <th scope="col">Codigo</th>
+              <th scope="col">Marca</th>
+              <th scope="col">Dispositivo Entrada</th>
+              <th scope="col" style="width: 10px">&nbsp;</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr
+              *ngFor="let miTeclado of arregloTeclado; let indice = index"
+              (click)="seleccionarTeclado(miTeclado)"
+              [class.table-info]="miTeclado == tecladoSeleccionado"
+            >
+              <td>{{ miTeclado.id }}</td>
+              <td>{{ miTeclado.marca }}</td>
+              <td>{{ miTeclado.dispositivoEntrada }}</td>
+              <td>
+                <button
+                  type="button"
+                  class="btn btn-danger btn-sm"
+                  (click)="abrirModal(ventanaModalEliminar, miTeclado)"
+                >
+                  <i class="fa-solid fa-trash fa-beat" style="color: #fff"></i>
+                </button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <div class="col-12 col-md-5">
+      <!-- FORMULARIO PERIFERICOS TECLADO -->
+      <router-outlet></router-outlet>
+    </div>
+  </div>
+</div>
+
+<ng-template #ventanaModalEliminar>
+  <div class="modal-header bg-dark text-white" style="border-radius: 2px">
+    <h5 class="modal-title">{{ modalTitulo }}</h5>
+    <button
+      class="btn btn-close text-white"
+      type="button"
+      (click)="modalRef.hide()"
+    ></button>
+  </div>
+  <div class="modal-body d-flex justify-content-center">
+    <p class="text-center">
+      <strong>{{ modalCuerpo }}</strong> <br />
+      {{ modalContenido }}
+    </p>
+  </div>
+  <div class="modal-footer">
+    <button class="btn btn-danger btn-sm" type="button" (click)="btnEliminar()">
+      Eliminar
+    </button>
+    <button
+      class="btn btn-outline-dark btn-sm"
+      type="button"
+      (click)="btnCancelar()"
+    >
+      Cancelar
+    </button>
+  </div>
+</ng-template>

@@ -1,0 +1,106 @@
+<nav class="pt-1" aria-label="breadcrumb">
+  <ol class="breadcrumb">
+    <li class="breadcrumb-item">
+      <a [routerLink]="['/private']" routerLinkActive="router-link-active">
+        <i class="fa fa-home"></i>
+      </a>
+    </li>
+    <li class="breadcrumb-item active" aria-current="page">Computadoras</li>
+  </ol>
+</nav>
+
+<div class="row mt-lg-5">
+  <div class="col-lg-8">
+    <!-- TABLA COMPUTADORES -->
+    <div class="table-responsive">
+      <table class="table table-striped table-hover table-sm my-hover">
+        <thead class="bg-dark text-white">
+          <tr class="table-dark">
+            <th scope="col" style="width: 10px">Código</th>
+            <th scope="col" style="width: 30px">Nombre</th>
+            <th scope="col" style="width: 15px">Monitor</th>
+            <th scope="col" style="width: 20px">Teclado</th>
+            <th scope="col" style="width: 15px">Ratón</th>
+            <th scope="col" style="width: 20px">Foto</th>
+            <th scope="col" style="width: 10px">&nbsp;</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr
+            *ngFor="let miPc of arregloPc; let index = index"
+            (click)="seleccionarPc(miPc)"
+            [class.table-info]="miPc == pcSeleccionado"
+          >
+            <td>{{ miPc.idComputadora }}</td>
+            <td>{{ miPc.nombre }}</td>
+            <td>{{ miPc.monitor.marca }} [{{ miPc.monitor.tamanno }}'']</td>
+            <td>
+              {{ miPc.teclado.marca }} - {{ miPc.teclado.dispositivoEntrada }}
+            </td>
+            <td>
+              {{ miPc.raton.marca }} - {{ miPc.raton.dispositivoEntrada }}
+            </td>
+            <td>
+              <img
+                [src]="miPc.base64Computadora"
+                onerror="this.src='../assets/images/noFoto.png'"
+                class="img-thumbnail"
+              />
+            </td>
+            <td>
+              <i
+                class="fa-solid fa-trash fa-fade"
+                style="color: #ff0000"
+                (click)="abrirModal(ventanaModalEliminar, miPc)"
+              ></i>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <div class="col-lg-4">
+    <router-outlet></router-outlet>
+  </div>
+</div>
+
+<ng-template #ventanaModalEliminar>
+  <div class="modal-header bg-dark text-white" style="border-radius: 2px">
+    <h5 class="modal-title">{{ modalTitulo }}</h5>
+    <button
+      class="btn btn-close text-white"
+      type="button"
+      (click)="modalRef.hide()"
+    ></button>
+  </div>
+  <div class="modal-body d-flex justify-content-center">
+    <p class="text-center">
+      <strong>{{ modalCuerpo }}</strong> <br />
+      {{ modalContenido }}
+      <img
+        [src]="'data:image/png;base64' + modalContenidoImg"
+        onerror="this.src='../assets/images/noFoto.png'"
+        class="img-fluid"
+        style="
+          height: 250px;
+          width: auto;
+          display: block;
+          margin-left: auto;
+          margin-right: auto;
+        "
+      />
+    </p>
+  </div>
+  <div class="modal-footer">
+    <button class="btn btn-danger btn-sm" type="button" (click)="btnEliminar()">
+      Eliminar
+    </button>
+    <button
+      class="btn btn-outline-dark btn-sm"
+      type="button"
+      (click)="btnCancelar()"
+    >
+      Cancelar
+    </button>
+  </div>
+</ng-template>

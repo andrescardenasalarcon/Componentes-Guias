@@ -1,0 +1,122 @@
+<div class="card">
+  <h5 class="card-header">Periferico {{ titulo }}</h5>
+  <div class="card-body">
+    <form
+      #formCrearPerifericos="ngForm"
+      (ngSubmit)="operacionesPerifericos(formCrearPerifericos, $event)"
+      novalidate
+    >
+      <div class="row g-3 mt-1">
+        <div class="col-3">
+          <label for="marca" class="text-success">Marca:</label>
+        </div>
+        <div class="col-md-8">
+          <input
+            type="text"
+            class="form-control form-control-sm"
+            id="marca"
+            name="marca"
+            #marca="ngModel"
+            [(ngModel)]="objetoSeleccionado!.marca"
+            [ngClass]="{
+              'is-invalid': formCrearPerifericos.submitted && marca.invalid
+            }"
+            required
+          />
+          <div
+            class="invalid-feedback"
+            *ngIf="formCrearPerifericos.submitted && marca.invalid"
+          >
+            <span *ngIf="marca.errors?.['required']">
+              Marca no ingresada!!!
+            </span>
+          </div>
+        </div>
+      </div>
+      <div class="row g-3 mt-1">
+        <div class="col-3">
+          <label for="dispositivoEntrada" class="text-success"
+            >Dispositivo Entrada:</label
+          >
+        </div>
+        <div class="col-md-8">
+          <input
+            type="text"
+            class="form-control form-control-sm"
+            placeholder="Alambrico - Inalambrico "
+            id="dispositivoEntrada"
+            name="dispositivoEntrada"
+            #dispositivoEntrada="ngModel"
+            [(ngModel)]="objetoSeleccionado!.dispositivoEntrada"
+            [ngClass]="{
+              'is-invalid':
+                formCrearPerifericos.submitted && dispositivoEntrada.invalid
+            }"
+            required
+          />
+          <div
+            class="invalid-feedback"
+            *ngIf="formCrearPerifericos.submitted && dispositivoEntrada.invalid"
+          >
+            <span *ngIf="dispositivoEntrada.errors?.['required']">
+              Dispositivo Entrada no registrado!!!
+            </span>
+          </div>
+        </div>
+      </div>
+
+      <ng-component
+        class="d-grid py-4"
+        *ngIf="
+          objetoSeleccionado.id === 0;
+          then crearPeriferico;
+          else updatePeriferico
+        "
+      ></ng-component>
+
+      <ng-template #crearPeriferico>
+        <div class="my-3">
+          <div class="d-flex justify-content-center">
+            <div class="d-grid gap-1 col-10">
+              <button
+                id="crearPeriferico"
+                type="submit"
+                class="btn btn-primary btn-sm"
+              >
+                Crear {{ titulo }}
+              </button>
+            </div>
+          </div>
+        </div>
+      </ng-template>
+      <ng-template #updatePeriferico>
+        <div class="container overflow-hidden text-center">
+          <div class="row gx-5 justify-content-center">
+            <div class="col">
+              <div class="p-3">
+                <button
+                  id="actualizarPeriferico"
+                  type="submit"
+                  class="btn btn-success btn-sm"
+                >
+                  Actualizar
+                </button>
+              </div>
+            </div>
+            <div class="col">
+              <div class="p-3">
+                <button
+                  type="button"
+                  class="btn btn-secondary btn-sm"
+                  (click)="cancelForm(formCrearPerifericos)"
+                >
+                  Cancelar
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </ng-template>
+    </form>
+  </div>
+</div>
